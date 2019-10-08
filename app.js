@@ -7,7 +7,7 @@ app.get('/', function(req, res)
     res.send("Hello World");
 });
 
-app.get('/About', function()
+app.get('/About', function(req, res)
 {
     res.send("<h1>About Page</h1>");
 });
