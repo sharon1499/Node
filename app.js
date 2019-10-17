@@ -10,16 +10,22 @@ app.set("view engine", 'ejs');
 app.use(bodyParser.urlencoded({ encoded: true}));
 
 var task = ["bark", "meow"];
+var complete = ["eat", "sleep"];
 
 app.get('/', function(req, res)
 {
-    res.render("index", {task:task});
+    res.render("index", {task:task, complete:complete});
 });
 
-app.post('/addTask', function(req, res)
+app.post('/addtask', function(req, res)
 {
     var newTask = req.body.newtask;
     task.push(newTask);
+    res.redirect('/');
+});
+
+app.post('/removetask', function(req, res)
+{
     res.redirect('/');
 });
 
