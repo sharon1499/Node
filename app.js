@@ -36,7 +36,7 @@ app.post('/removetask', function(req, res)
     {
         for(var i = 0; i < completeTask.length; i++)
         {
-            complete.push(completeTask);
+            complete.push(completeTask[i]);
             task.splice(task.indexOf(completeTask[i]), 1);
         }
     }
