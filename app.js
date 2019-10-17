@@ -34,7 +34,11 @@ app.post('/removetask', function(req, res)
     }
     else if(typeof completeTask === "object")
     {
-
+        for(var i = 0; i < completeTask.length; i++)
+        {
+            complete.push(completeTask);
+            task.splice(task.indexOf(completeTask), 1);
+        }
     }
     res.redirect('/');
 });
