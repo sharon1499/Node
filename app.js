@@ -3,6 +3,7 @@ var path =  require('path');
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
+const fetch = require('node-fetch');
 
 var app = express();
 
@@ -36,7 +37,7 @@ app.get('/', function(req, res){
                     complete.push(todo[i].item);
                 }else{
                     task.push(todo[i].item);
-                    }
+                }
             }
         }
     });
