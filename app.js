@@ -42,7 +42,7 @@ app.post('/addtask', function(req, res)
     let newTodo = new Todo({
         item: req.body.newtask,
         done: false
-    })
+    });
     newTodo.save(function(err){
         if(err){
             console.log(err);
