@@ -3,7 +3,7 @@ var path =  require('path');
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
-//const fetch = require('node-fetch');
+
 var app = express();
 
 var port = process.env.PORT || 3000;
@@ -14,7 +14,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ encoded: false}));
 const Todo = require('./models/todo.model');
-const mongoDB = 'mongodb+srv://Boom:test@cluster0-mjwvn.mongodb.net/Boom?retryWrites=true&w=majority';
+const mongoDB = 'mongodb+srv://Boom:test@cluster0-mjwvn.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
@@ -22,7 +22,7 @@ db.on('error', console.error.bind(console, "MongoDB connection error:"));
 
 
 var task = [];
-var complete = ["eat", "sleep"];
+var complete = [];
 
 app.get('/', function(req, res){
     Todo.find(function(err, todo){
@@ -54,12 +54,19 @@ app.post('/addtask', function(req, res){
 app.post('/removetask', function(req, res){
     var completeTask = req.body.check;
     if(typeof completeTask === "string"){
-        complete.push(completeTask);
-        task.splice(task.indexOf(completeTask), 1);
+        Todo.updateOne({item: completeTask},{done: true}, function(err)
+        {
+            console.log(err);
+        })
+        //complete.push(completeTask);
+        //task.splice(task.indexOf(completeTask), 1);
     }else if (typeof completeTask === "object"){
         for(var i = 0; i < completeTask.length ; i++){
-            complete.push(completeTask[i]);
-            task.splice(task.indexOf(completeTask[i]), 1);
+            Todo.updateOne({item: completeTask},{done: true}, function(err){
+            console.log(err);
+            })
+            //complete.push(completeTask[i]);
+            //task.splice(task.indexOf(completeTask[i]), 1);
         }
     }
     res.redirect('/');
