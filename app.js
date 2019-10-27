@@ -4,9 +4,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 const fetch = require('node-fetch');
-
 var app = express();
-
 var port = process.env.PORT || 3000;
 
 app.set('views', path.join(__dirname, 'views'));
@@ -15,7 +13,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ encoded: false}));
 const Todo = require('./models/todo.model');
-const mongoDB = 'mongodb+srv://Boom:test@cluster0-mjwvn.mongodb.net/test?retryWrites=true&w=majority';
+const mongoDB = 'mongodb+srv://test:test@cluster0-mjwvn.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
@@ -63,13 +61,11 @@ app.post('/removetask', function(req, res){
         Todo.updateOne({item: completeTask},{done: true}, function(err){
             console.log(err);
         })
-
     }else if (typeof completeTask === "object"){
         for(var i = 0; i < completeTask.length ; i++){
             Todo.updateOne({item: completeTask[i]},{done: true}, function(err){
                 console.log(err);
             })
-
         }
     }
     res.redirect('/');
