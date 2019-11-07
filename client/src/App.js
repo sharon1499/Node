@@ -5,14 +5,15 @@ import './App.css';
 
 class App extends Component {
     render(){
-        const App = () =>
-        {
+        const App = () => (
+        
             <div>
                 <Switch>
                     <Route exact path='/' component={Home} />
                 </Switch>
             </div>
-        }
+        )
+        
         return (
             <Switch>
                 <App />
